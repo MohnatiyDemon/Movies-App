@@ -11,3 +11,14 @@
   border-radius: 50%;
   padding: 20px;
 }
+
+.MovieCard {
+  height: 340px;
+  width: 454px;
+  border-radius: 0;
+  overflow-y: none;
+}
+.MovieCard img {
+  height: 281px;
+  width: 183px;
+}

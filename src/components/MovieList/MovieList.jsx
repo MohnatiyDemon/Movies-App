@@ -1,3 +1,4 @@
+import { Col, Row } from 'antd'
 import { useEffect, useState } from 'react'
 import MovieCard from '../MovieCard/MovieCard'
 
@@ -31,9 +32,17 @@ const MovieList = () => {
   }, [])
 
   return (
-    <>
-      {data ? data.map((movieData) => <MovieCard key={movieData.id} movieData={movieData} />) : <div>Loading...</div>}
-    </>
+    <Row gutter={[434, 36]}>
+      {data ? (
+        data.map((movieData) => (
+          <Col xs={24} sm={12} lg={12} key={movieData.id}>
+            <MovieCard key={movieData.id} movieData={movieData} />
+          </Col>
+        ))
+      ) : (
+        <div>Loading...</div>
+      )}
+    </Row>
   )
 }
 

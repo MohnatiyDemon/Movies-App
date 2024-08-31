@@ -1,4 +1,3 @@
-import { StarOutlined } from '@ant-design/icons'
 import { Card, Flex, Typography } from 'antd'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
@@ -44,31 +43,24 @@ const MovieCard = ({ movieData }) => {
     ? format(new Date(release_date), 'MMMM dd, yyyy', { locale: enGB })
     : 'Unknown release date'
   return (
-    <>
-      <Card hoverable>
-        <Flex gap="20px">
-          <Flex>
-            <img src={imageUrl} alt={title} width="250px" />
+    <Card hoverable className="MovieCard">
+      <Flex gap="20px">
+        <img src={imageUrl} alt={title} />
+        <Flex vertical gap="10px">
+          <Flex justify="space-between" align="center">
+            <Title level={2}>{title}</Title>
+            <Title level={3} className="vote-average">
+              {vote_average ? vote_average.toFixed(1) : null}
+            </Title>
           </Flex>
-          <Flex vertical gap="10px">
-            <Flex justify="space-between" align="center">
-              <Title level={2}>{title}</Title>
-              <Title level={3} className="vote-average">
-                {vote_average ? vote_average.toFixed(1) : null}
-              </Title>
-            </Flex>
-            <Text type="secondary">{releaseDate}</Text>
-            <Flex wrap>{genresData}</Flex>
-            <Paragraph strong ellipsis={{ rows: 9 }}>
-              {overview}
-            </Paragraph>
-            <Flex>
-              <StarOutlined />
-            </Flex>
-          </Flex>
+          <Text type="secondary">{releaseDate}</Text>
+          <Flex wrap>{genresData}</Flex>
+          <Paragraph strong ellipsis={{ rows: 6 }}>
+            {overview}
+          </Paragraph>
         </Flex>
-      </Card>
-    </>
+      </Flex>
+    </Card>
   )
 }
 
