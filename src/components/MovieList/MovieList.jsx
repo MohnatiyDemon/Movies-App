@@ -1,6 +1,7 @@
-import { Col, Row } from 'antd'
+import { Card, Col, Row } from 'antd'
 import { useEffect, useState } from 'react'
 import MovieCard from '../MovieCard/MovieCard'
+import './MovieList.css'
 
 const MovieList = () => {
   const [data, setData] = useState(null)
@@ -33,14 +34,20 @@ const MovieList = () => {
 
   return data ? (
     data.map((movieData) => (
-      <Col span={[12, 12]} justify="center">
-        <Row justify="center" key={movieData.id}>
+      <Col span={[12, 12]} justify="center" key={movieData.id}>
+        <Row justify="center">
           <MovieCard movieData={movieData} />
         </Row>
       </Col>
     ))
   ) : (
-    <div>Loading...</div>
+    <Row gutter={[16, 25]}>
+      {[1, 2, 3, 4, 5, 6].map((key) => (
+        <Col span={12} key={key}>
+          <Card className="loading-card" loading></Card>
+        </Col>
+      ))}
+    </Row>
   )
 }
 
