@@ -17,7 +17,7 @@ const MovieList = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=return&include_adult=true&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/movie?query=dune&include_adult=true&language=en-US&page=1`,
         options
       )
       const data = await response.json()
@@ -31,18 +31,16 @@ const MovieList = () => {
     fetchData()
   }, [])
 
-  return (
-    <Row gutter={[434, 36]}>
-      {data ? (
-        data.map((movieData) => (
-          <Col xs={24} sm={12} lg={12} key={movieData.id}>
-            <MovieCard key={movieData.id} movieData={movieData} />
-          </Col>
-        ))
-      ) : (
-        <div>Loading...</div>
-      )}
-    </Row>
+  return data ? (
+    data.map((movieData) => (
+      <Col span={[12, 12]} justify="center">
+        <Row justify="center" key={movieData.id}>
+          <MovieCard movieData={movieData} />
+        </Row>
+      </Col>
+    ))
+  ) : (
+    <div>Loading...</div>
   )
 }
 

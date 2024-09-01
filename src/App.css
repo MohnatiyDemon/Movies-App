@@ -1,4 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
+.container {
+  background-color: white;
+  margin: 0 auto;
+  width: 1010px;
+  padding: 36px;
 }
