@@ -4,3 +4,19 @@
   width: 1010px;
   padding: 36px;
 }
+
+.Pagination {
+  padding-top: 25px;
+}
+
+.Input {
+  margin-bottom: 25px;
+  height: 40px;
+  max-width: 933px;
+}
+
+.Group {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  margin-top: -10px;
+}

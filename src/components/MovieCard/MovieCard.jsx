@@ -1,4 +1,4 @@
-import { Card, Col, Flex, Row, Typography } from 'antd'
+import { Card, Col, Flex, Rate, Row, Typography } from 'antd'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import noImage from '../../public/no-image.png'
@@ -44,7 +44,7 @@ const MovieCard = ({ movieData }) => {
     : 'Unknown release date'
   return (
     <Card hoverable className="MovieCard">
-      <Row gutter={10}>
+      <Row>
         <Col span={12}>
           <img src={imageUrl} alt={title} />
         </Col>
@@ -56,9 +56,10 @@ const MovieCard = ({ movieData }) => {
             </Flex>
             <Text type="secondary">{releaseDate}</Text>
             <Flex wrap>{genresData}</Flex>
-            <Paragraph strong ellipsis={{ rows: 6 }}>
+            <Paragraph strong ellipsis={{ rows: 5 }}>
               {overview}
             </Paragraph>
+            <Rate className="Rate" count={10} />
           </Flex>
         </Col>
       </Row>
