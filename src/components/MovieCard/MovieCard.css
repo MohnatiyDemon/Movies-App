@@ -13,17 +13,25 @@
 }
 
 .MovieCard {
-  height: 340px;
+  padding: 10px;
+  height: 281px;
   width: 454px;
   border-radius: 0;
 }
 
 .MovieCard__title {
   line-height: 28px;
-  max-width: 150px;
+  max-width: 190px;
 }
 
 .MovieCard img {
-  height: 281px;
+  position: absolute;
+  top: -10px;
+  left: 0;
+  height: 279px;
   width: 183px;
+}
+
+.Rate {
+  font-size: 17px;
 }
