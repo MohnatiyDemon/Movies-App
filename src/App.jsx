@@ -1,5 +1,6 @@
 import { Input, Layout, Pagination, Radio, Row } from 'antd'
-import { useState } from 'react'
+import debounce from 'lodash/debounce'
+import { useMemo, useState } from 'react'
 import './App.css'
 import MovieList from './components/MovieList/MovieList'
 
@@ -18,13 +19,25 @@ const App = () => {
     setCurrentPage(page)
   }
 
+  const debouncedSetQuery = useMemo(
+    () =>
+      debounce((value) => {
+        setQuery(value)
+      }, 300),
+    []
+  )
+
+  const handleInputChange = (e) => {
+    debouncedSetQuery(e.target.value)
+  }
+
   return (
     <Layout className="container">
       <Group value={group} className="Group" onChange={handleGroupChange}>
         <Button value="Search">Search</Button>
         <Button value="Rated">Rated</Button>
       </Group>
-      <Input className="Input" placeholder="Type to search..." onChange={(e) => setQuery(e.target.value)} />
+      <Input className="Input" placeholder="Type to search..." onChange={handleInputChange} />
       <Row gutter={[25, 25]}>
         <MovieList query={query} currentPage={currentPage} />
       </Row>
