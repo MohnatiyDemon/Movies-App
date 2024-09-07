@@ -43,7 +43,7 @@ const MovieCard = ({ movieData }) => {
     ? format(new Date(release_date), 'MMMM dd, yyyy', { locale: enGB })
     : 'Unknown release date'
   return (
-    <Card styles={{ body: { padding: 0 } }} glutter hoverable className="MovieCard">
+    <Card styles={{ body: { padding: 0 } }} hoverable className="MovieCard">
       <Row gutter={20}>
         <Col span={10}>
           <img src={imageUrl} alt={title} />

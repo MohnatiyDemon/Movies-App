@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import MovieCard from '../MovieCard/MovieCard'
 import './MovieList.css'
 
-const MovieList = () => {
+const MovieList = ({ query, currentPage }) => {
   const [data, setData] = useState(null)
 
   const options = {
@@ -18,7 +18,7 @@ const MovieList = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=dune&include_adult=true&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=${currentPage}`,
         options
       )
       const data = await response.json()
@@ -30,7 +30,7 @@ const MovieList = () => {
 
   useEffect(() => {
     fetchData()
-  }, [])
+  }, [query, currentPage])
 
   return data ? (
     data.map((movieData) => (

@@ -22,6 +22,15 @@
 .MovieCard__title {
   line-height: 28px;
   max-width: 190px;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
 }
 
 .MovieCard img {
