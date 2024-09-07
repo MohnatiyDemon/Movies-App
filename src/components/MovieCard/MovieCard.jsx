@@ -55,8 +55,10 @@ const MovieCard = ({ movieData }) => {
               <h2 className="vote-average">{vote_average ? vote_average.toFixed(1) : null}</h2>
             </Flex>
             <Text type="secondary">{releaseDate}</Text>
-            <Flex wrap>{genresData}</Flex>
-            <Paragraph strong ellipsis={{ rows: 5 }}>
+            <Flex className="MovieCard__geners" wrap>
+              {genresData}
+            </Flex>
+            <Paragraph strong ellipsis={{ rows: 4 }}>
               {overview}
             </Paragraph>
             <Rate className="Rate" count={10} />

@@ -1,5 +1,7 @@
 .loading-card {
+  padding: 10px;
   height: 281px;
   width: 454px;
   border-radius: 0;
+  margin: 0 auto;
 }

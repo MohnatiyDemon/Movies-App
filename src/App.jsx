@@ -1,4 +1,4 @@
-import { Input, Layout, Pagination, Radio, Row } from 'antd'
+import { Input, Layout, Pagination, Radio } from 'antd'
 import debounce from 'lodash/debounce'
 import { useMemo, useState } from 'react'
 import './App.css'
@@ -10,6 +10,7 @@ const App = () => {
   const [group, setGroup] = useState('Search')
   const [currentPage, setCurrentPage] = useState(1)
   const [query, setQuery] = useState('dune')
+  const [totalPages, setTotalPages] = useState(0)
 
   const handleGroupChange = (e) => {
     setGroup(e.target.value)
@@ -23,12 +24,16 @@ const App = () => {
     () =>
       debounce((value) => {
         setQuery(value)
-      }, 300),
+      }, 500),
     []
   )
 
   const handleInputChange = (e) => {
     debouncedSetQuery(e.target.value)
+  }
+
+  const handleTotalPagesChange = (pages) => {
+    setTotalPages(pages)
   }
 
   return (
@@ -38,16 +43,17 @@ const App = () => {
         <Button value="Rated">Rated</Button>
       </Group>
       <Input className="Input" placeholder="Type to search..." onChange={handleInputChange} />
-      <Row gutter={[25, 25]}>
-        <MovieList query={query} currentPage={currentPage} />
-      </Row>
+
+      <MovieList query={query} currentPage={currentPage} onTotalPagesChange={handleTotalPagesChange} />
+
       <Pagination
         className="Pagination"
         align="center"
         defaultCurrent={1}
-        total={50}
+        total={totalPages * 10}
         current={currentPage}
         onChange={handlePaginationChange}
+        showSizeChanger={false}
       />
     </Layout>
   )
