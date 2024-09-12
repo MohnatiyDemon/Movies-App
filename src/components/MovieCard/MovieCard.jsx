@@ -1,43 +1,37 @@
 import { Card, Col, Flex, Rate, Row, Typography } from 'antd'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
+import { useContext } from 'react'
 import noImage from '../../public/no-image.png'
+import GenresContext from '../GenresContext/GenresContext'
 import './MovieCard.css'
 
-const { Title, Text, Paragraph } = Typography
+const { Text, Paragraph } = Typography
 
-const genreMapping = {
-  28: 'Action',
-  12: 'Adventure',
-  16: 'Animation',
-  35: 'Comedy',
-  80: 'Crime',
-  99: 'Documentary',
-  18: 'Drama',
-  10751: 'Family',
-  14: 'Fantasy',
-  36: 'History',
-  27: 'Horror',
-  10402: 'Music',
-  9648: 'Mystery',
-  10749: 'Romance',
-  878: 'Science Fiction',
-  10770: 'TV Movie',
-  53: 'Thriller',
-  10752: 'War',
-  37: 'Western',
+const getRatingClass = (rating) => {
+  if (rating <= 3) return 'rating-low'
+  if (rating <= 5) return 'rating-medium'
+  if (rating <= 7) return 'rating-high'
+  return 'rating-excellent'
 }
 
 const MovieCard = ({ movieData }) => {
   const { title, overview, release_date, vote_average, poster_path, genre_ids } = movieData
 
+  const genres = useContext(GenresContext)
+
+  const ratingClass = getRatingClass(vote_average)
+
   const imageUrl = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : noImage
 
-  const genresData = genre_ids?.map((genre) => (
-    <Text code key={genre}>
-      {genreMapping[genre]}
-    </Text>
-  ))
+  const genresData = genre_ids?.map((genreId) => {
+    const genre = genres.find((g) => g.id === genreId)
+    return genre ? (
+      <Text code key={genre.id}>
+        {genre.name}
+      </Text>
+    ) : null
+  })
 
   const releaseDate = release_date
     ? format(new Date(release_date), 'MMMM dd, yyyy', { locale: enGB })
@@ -52,7 +46,7 @@ const MovieCard = ({ movieData }) => {
           <Flex vertical justify="flex-start" gap="4px">
             <Flex justify="space-between" align="center">
               <h1 className="MovieCard__title">{title}</h1>
-              <h2 className="vote-average">{vote_average ? vote_average.toFixed(1) : null}</h2>
+              <h2 className={`vote-average ${ratingClass}`}>{vote_average ? vote_average.toFixed(1) : null}</h2>
             </Flex>
             <Text type="secondary">{releaseDate}</Text>
             <Flex className="MovieCard__geners" wrap>
