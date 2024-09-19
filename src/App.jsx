@@ -101,7 +101,7 @@ const App = () => {
 
   return (
     <Layout className="container">
-      <Tabs centered items={items} />
+      <Tabs destroyInactiveTabPane centered items={items} />
     </Layout>
   )
 }
