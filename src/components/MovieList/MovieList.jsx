@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import MovieCard from '../MovieCard/MovieCard'
 import './MovieList.css'
 
-const MovieList = ({ query, currentPage, onTotalPagesChange }) => {
+const MovieList = ({ query, currentPage, onTotalPagesChange, guestSessionId }) => {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -60,7 +60,7 @@ const MovieList = ({ query, currentPage, onTotalPagesChange }) => {
         <Row gutter={[16, 25]}>
           {data.map((movieData) => (
             <Col span={12} key={movieData.id}>
-              <MovieCard movieData={movieData} />
+              <MovieCard guestSessionId={guestSessionId} movieData={movieData} />
             </Col>
           ))}
         </Row>

@@ -1,7 +1,7 @@
 import { Card, Col, Flex, Rate, Row, Typography } from 'antd'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import noImage from '../../public/no-image.png'
 import GenresContext from '../GenresContext/GenresContext'
 import './MovieCard.css'
@@ -15,8 +15,45 @@ const getRatingClass = (rating) => {
   return 'rating-excellent'
 }
 
-const MovieCard = ({ movieData }) => {
+const MovieCard = ({ movieData, guestSessionId }) => {
   const { title, overview, release_date, vote_average, poster_path, genre_ids } = movieData
+
+  const [userRating, setUserRating] = useState(movieData.userRating || 0)
+
+  const handleRateChange = async (value) => {
+    setUserRating(value)
+
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTliMzM3NTI5NWY1YmEzNWVhZTkwMTVlYTBmMjBjOSIsIm5iZiI6MTcyNTAxMTI2OC43MTAyMTUsInN1YiI6IjY2ZDE5MTNlM2UxYWI0NWNlNWIxNTI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._HV6mYV4emMyFSy3cdMo_ZH58oQQ2Q4__C3EWZ7nvYg',
+      },
+      body: JSON.stringify({
+        value: value,
+      }),
+    }
+
+    try {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieData.id}/rating?guest_session_id=${guestSessionId}`,
+        options
+      )
+      const data = await response.json()
+
+      if (data.success) {
+        console.log('Рейтинг успешно установлен!')
+      } else {
+        console.error('Не удалось установить рейтинг')
+        setUserRating(0)
+      }
+    } catch (error) {
+      console.error('Произошла ошибка при отправке рейтинга')
+      setUserRating(0)
+    }
+  }
 
   const genres = useContext(GenresContext)
 
@@ -55,7 +92,7 @@ const MovieCard = ({ movieData }) => {
             <Paragraph strong ellipsis={{ rows: 4 }}>
               {overview}
             </Paragraph>
-            <Rate className="Rate" count={10} />
+            <Rate allowHalf value={userRating} onChange={handleRateChange} className="Rate" count={10} />
           </Flex>
         </Col>
       </Row>

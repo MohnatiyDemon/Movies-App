@@ -73,7 +73,12 @@ const App = () => {
         <>
           <Input className="Input" placeholder="Type to search..." onChange={handleInputChange} />
 
-          <MovieList query={query} currentPage={currentPage} onTotalPagesChange={handleTotalPagesChange} />
+          <MovieList
+            query={query}
+            currentPage={currentPage}
+            onTotalPagesChange={handleTotalPagesChange}
+            guestSessionId={guestSessionId}
+          />
 
           <Pagination
             className="Pagination"
