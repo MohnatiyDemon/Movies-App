@@ -59,7 +59,7 @@ const MovieList = ({ query, currentPage, onTotalPagesChange, guestSessionId }) =
       {data && data.length > 0 ? (
         <Row gutter={[16, 25]}>
           {data.map((movieData) => (
-            <Col span={12} key={movieData.id}>
+            <Col span={12} key={movieData.id} xs={24} sm={12}>
               <MovieCard guestSessionId={guestSessionId} movieData={movieData} />
             </Col>
           ))}

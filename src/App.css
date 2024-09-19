@@ -1,3 +1,11 @@
+@media (max-width: 768px) {
+  .container {
+    width: 768px;
+  }
+  .Input {
+    max-width: 768px;
+  }
+}
 .container {
   background-color: white;
   margin: 0 auto;

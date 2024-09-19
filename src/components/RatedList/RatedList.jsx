@@ -89,29 +89,31 @@ const RatedList = ({ guestSessionId }) => {
               : 'Unknown release date'
 
             return (
-              <Card hoverable key={id} className="MovieCard" styles={{ body: { padding: 0 } }}>
-                <Row gutter={20}>
-                  <Col span={10}>
-                    <img src={imageUrl} alt={title} />
-                  </Col>
-                  <Col span={14}>
-                    <Flex vertical justify="flex-start" gap="4px">
-                      <Flex justify="space-between" align="center">
-                        <h1 className="MovieCard__title">{title}</h1>
-                        <h2 className={`vote-average ${ratingClass}`}>
-                          {vote_average ? vote_average.toFixed(1) : null}
-                        </h2>
+              <Col key={id} span={12} xs={24} sm={12}>
+                <Card hoverable className="MovieCard" styles={{ body: { padding: 0 } }}>
+                  <Row gutter={20}>
+                    <Col span={10}>
+                      <img src={imageUrl} alt={title} />
+                    </Col>
+                    <Col span={14}>
+                      <Flex vertical justify="flex-start" gap="4px">
+                        <Flex justify="space-between" align="center">
+                          <h1 className="MovieCard__title">{title}</h1>
+                          <h2 className={`vote-average ${ratingClass}`}>
+                            {vote_average ? vote_average.toFixed(1) : null}
+                          </h2>
+                        </Flex>
+                        <Text type="secondary">{releaseDate}</Text>
+                        <div className="MovieCard__geners">{genresData}</div>
+                        <Paragraph strong ellipsis={{ rows: 4 }}>
+                          {overview}
+                        </Paragraph>
+                        <Rate allowHalf disabled value={rating} className="Rate" count={10} />
                       </Flex>
-                      <Text type="secondary">{releaseDate}</Text>
-                      <div className="MovieCard__geners">{genresData}</div>
-                      <Paragraph strong ellipsis={{ rows: 4 }}>
-                        {overview}
-                      </Paragraph>
-                      <Rate allowHalf disabled value={rating} className="Rate" count={10} />
-                    </Flex>
-                  </Col>
-                </Row>
-              </Card>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
             )
           })}
         </Row>
