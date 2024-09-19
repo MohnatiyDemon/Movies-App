@@ -67,7 +67,7 @@ const RatedList = ({ guestSessionId }) => {
 
   return (
     <Spin spinning={loading} tip="Загрузка..." size="large">
-      {ratedMovies.length > 0 ? (
+      {ratedMovies && ratedMovies.length > 0 ? (
         <Row gutter={[16, 25]}>
           {ratedMovies.map((movie) => {
             const { id, title, overview, release_date, vote_average, poster_path, genre_ids, rating } = movie
@@ -118,7 +118,7 @@ const RatedList = ({ guestSessionId }) => {
           })}
         </Row>
       ) : (
-        !loading && (
+        loading || (
           <Row justify="center" style={{ marginTop: '20px' }}>
             <Col span={24}>
               <Typography.Text type="secondary">Здесь пока нет оцененных фильмов.</Typography.Text>
