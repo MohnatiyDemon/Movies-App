@@ -1,4 +1,4 @@
-import { Alert, Card, Col, Flex, Rate, Row, Spin, Typography } from 'antd'
+import { Alert, Card, Col, Empty, Flex, Rate, Row, Spin, Typography } from 'antd'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import { useContext, useEffect, useState } from 'react'
@@ -55,6 +55,15 @@ const RatedList = ({ guestSessionId }) => {
     fetchRatedMovies()
   }, [guestSessionId])
 
+  if (ratedMovies.length === 0 && !loading) {
+    return (
+      <Row style={{ margin: '0 auto' }}>
+        <Col span={24}>
+          <Empty style={{ margin: '0 auto' }} description="Оцененных фильмов не найдено, попробуйте поставить оценку" />
+        </Col>
+      </Row>
+    )
+  }
   if (error) {
     return (
       <Row justify="center" style={{ marginTop: '20px', margin: '0 auto', textAlign: 'center' }}>
@@ -119,10 +128,12 @@ const RatedList = ({ guestSessionId }) => {
         </Row>
       ) : (
         loading || (
-          <Row justify="center" style={{ marginTop: '20px' }}>
-            <Col span={24}>
-              <Typography.Text type="secondary">Здесь пока нет оцененных фильмов.</Typography.Text>
-            </Col>
+          <Row gutter={[16, 25]}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((key) => (
+              <Col span={12} key={key}>
+                <Card className="loading-card" loading />
+              </Col>
+            ))}
           </Row>
         )
       )}
