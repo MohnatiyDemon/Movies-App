@@ -2,18 +2,12 @@ import { Alert, Card, Col, Empty, Flex, Rate, Row, Spin, Typography } from 'antd
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import { useContext, useEffect, useState } from 'react'
-import noImage from '../../public/no-image.png'
+import noImage from '../../assets/no-image.png'
+import getRatingClass from '../../utils/getRatingClass'
 import GenresContext from '../GenresContext/GenresContext'
 import '../MovieCard/MovieCard.css'
 
 const { Text, Paragraph } = Typography
-
-const getRatingClass = (rating) => {
-  if (rating <= 3) return 'rating-low'
-  if (rating <= 5) return 'rating-medium'
-  if (rating <= 7) return 'rating-high'
-  return 'rating-excellent'
-}
 
 const RatedList = ({ guestSessionId }) => {
   const [ratedMovies, setRatedMovies] = useState([])
@@ -107,14 +101,14 @@ const RatedList = ({ guestSessionId }) => {
                     <Col span={14}>
                       <Flex vertical justify="flex-start" gap="4px">
                         <Flex justify="space-between" align="center">
-                          <h1 className="MovieCard__title">{title}</h1>
-                          <h2 className={`vote-average ${ratingClass}`}>
+                          <span className="MovieCard__title">{title}</span>
+                          <span className={`vote-average ${ratingClass}`}>
                             {vote_average ? vote_average.toFixed(1) : null}
-                          </h2>
+                          </span>
                         </Flex>
                         <Text type="secondary">{releaseDate}</Text>
                         <div className="MovieCard__geners">{genresData}</div>
-                        <Paragraph strong ellipsis={{ rows: 4 }}>
+                        <Paragraph style={{ fontSize: 12 }} strong ellipsis={{ rows: 5 }}>
                           {overview}
                         </Paragraph>
                         <Rate allowHalf disabled value={rating} className="Rate" count={10} />

@@ -1,15 +1,18 @@
 .vote-average {
   position: relative;
   text-wrap: nowrap;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
 }
 .vote-average::before {
   content: '';
   position: absolute;
   right: -6px;
-  top: -4px;
+  top: -5px;
   border: 2px solid;
   border-radius: 50%;
-  padding: 20px;
+  padding: 18px;
 }
 
 .rating-low::before {
@@ -37,7 +40,7 @@
 }
 
 .MovieCard__title {
-  line-height: 28px;
+  line-height: 24px;
   max-width: 190px;
   font-weight: bold;
   font-size: 20px;
