@@ -13,9 +13,11 @@ const fetchRatedMovies = async (guestSessionId) => {
     `${API_URL}/guest_session/${guestSessionId}/rated/movies?language=en-US&page=1&sort_by=created_at.asc`,
     options
   )
-  if (response.ok) {
-    return response.json()
+  if (!response.ok) {
+    throw new Error(`Ошибка запроса: ${response.status}`)
   }
+
+  return response.json()
 }
 
 export default fetchRatedMovies

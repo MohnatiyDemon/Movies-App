@@ -2,6 +2,7 @@ import { Alert, Card, Col, Empty, Flex, Rate, Row, Spin, Typography } from 'antd
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import { useContext, useEffect, useState } from 'react'
+import fetchRatedMovies from '../../api/fetchRatedMovie'
 import noImage from '../../assets/no-image.png'
 import getRatingClass from '../../utils/getRatingClass'
 import GenresContext from '../GenresContext/GenresContext'
@@ -16,28 +17,11 @@ const RatedList = ({ guestSessionId }) => {
   const genres = useContext(GenresContext)
 
   useEffect(() => {
-    const fetchRatedMovies = async () => {
+    const loadRatedMovies = async () => {
       setLoading(true)
       setError(null)
-
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTliMzM3NTI5NWY1YmEzNWVhZTkwMTVlYTBmMjBjOSIsIm5iZiI6MTcyNTAxMTI2OC43MTAyMTUsInN1YiI6IjY2ZDE5MTNlM2UxYWI0NWNlNWIxNTI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._HV6mYV4emMyFSy3cdMo_ZH58oQQ2Q4__C3EWZ7nvYg',
-        },
-      }
       try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/guest_session/${guestSessionId}/rated/movies?language=en-US&page=1&sort_by=created_at.asc`,
-          options
-        )
-        if (!response.ok) {
-          throw new Error(`Ошибка загрузки данных! Статус: ${response.status}`)
-        }
-
-        const data = await response.json()
+        const data = await fetchRatedMovies(guestSessionId)
         setRatedMovies(data.results || [])
       } catch (err) {
         setError(err.message)
@@ -46,7 +30,7 @@ const RatedList = ({ guestSessionId }) => {
       }
     }
 
-    fetchRatedMovies()
+    loadRatedMovies()
   }, [guestSessionId])
 
   if (ratedMovies.length === 0 && !loading) {
