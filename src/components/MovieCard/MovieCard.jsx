@@ -13,7 +13,9 @@ const { Text, Paragraph } = Typography
 const MovieCard = ({ movieData, guestSessionId }) => {
   const { id, title, overview, release_date, vote_average, poster_path, genre_ids } = movieData
 
-  const [userRating, setUserRating] = useState(movieData.userRating || 0)
+  const [userRating, setUserRating] = useState(
+    () => JSON.parse(localStorage.getItem(`rating-${id}`)) || movieData.userRating || 0
+  )
 
   const handleRateChange = async (value) => {
     try {
@@ -21,6 +23,7 @@ const MovieCard = ({ movieData, guestSessionId }) => {
 
       if (data.success) {
         setUserRating(value)
+        localStorage.setItem(`rating-${id}`, JSON.stringify(value))
       }
     } catch (error) {
       setUserRating(0)

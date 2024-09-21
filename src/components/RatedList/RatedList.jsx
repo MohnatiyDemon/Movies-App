@@ -1,17 +1,13 @@
-import { Alert, Col, Empty, Row, Typography } from 'antd'
-import { useContext, useEffect, useState } from 'react'
+import { Alert, Col, Empty, Row } from 'antd'
+import { useEffect, useState } from 'react'
 import fetchRatedMovies from '../../api/fetchRatedMovie'
-import GenresContext from '../GenresContext/GenresContext'
 import '../MovieCard/MovieCard.css'
 import MovieGrid from '../MovieGrid/MovieGrid'
-
-const { Text, Paragraph } = Typography
 
 const RatedList = ({ guestSessionId }) => {
   const [ratedMovies, setRatedMovies] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const genres = useContext(GenresContext)
 
   useEffect(() => {
     const loadRatedMovies = async () => {
