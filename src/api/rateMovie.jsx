@@ -15,9 +15,11 @@ const rateMovie = async (movieId, guestSessionId, ratingValue) => {
 
   const response = await fetch(`${API_URL}/movie/${movieId}/rating?guest_session_id=${guestSessionId}`, options)
 
-  if (response.ok) {
-    return response.json()
+  if (!response.ok) {
+    throw new Error(`Ошибка запроса: ${response.status}`)
   }
+
+  return response.json()
 }
 
 export default rateMovie

@@ -2,6 +2,7 @@ import { Card, Col, Flex, Rate, Row, Typography } from 'antd'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 import { useContext, useState } from 'react'
+import rateMovie from '../../api/rateMovie'
 import noImage from '../../assets/no-image.png'
 import getRatingClass from '../../utils/getRatingClass'
 import GenresContext from '../GenresContext/GenresContext'
@@ -10,30 +11,13 @@ import './MovieCard.css'
 const { Text, Paragraph } = Typography
 
 const MovieCard = ({ movieData, guestSessionId }) => {
-  const { title, overview, release_date, vote_average, poster_path, genre_ids } = movieData
+  const { id, title, overview, release_date, vote_average, poster_path, genre_ids } = movieData
 
   const [userRating, setUserRating] = useState(movieData.userRating || 0)
 
   const handleRateChange = async (value) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTliMzM3NTI5NWY1YmEzNWVhZTkwMTVlYTBmMjBjOSIsIm5iZiI6MTcyNTAxMTI2OC43MTAyMTUsInN1YiI6IjY2ZDE5MTNlM2UxYWI0NWNlNWIxNTI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._HV6mYV4emMyFSy3cdMo_ZH58oQQ2Q4__C3EWZ7nvYg',
-      },
-      body: JSON.stringify({
-        value: value,
-      }),
-    }
-
     try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieData.id}/rating?guest_session_id=${guestSessionId}`,
-        options
-      )
-      const data = await response.json()
+      const data = await rateMovie(id, guestSessionId, value)
 
       if (data.success) {
         setUserRating(value)
