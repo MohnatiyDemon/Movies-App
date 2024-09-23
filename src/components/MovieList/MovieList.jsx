@@ -1,5 +1,6 @@
 import { Alert, Col, Row } from 'antd'
 import { useEffect, useState } from 'react'
+import fetchMovies from '../../api/fetchMovies'
 import MovieGrid from '../MovieGrid/MovieGrid'
 import './MovieList.css'
 
@@ -8,41 +9,25 @@ const MovieList = ({ query, currentPage, onTotalPagesChange, guestSessionId }) =
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZTliMzM3NTI5NWY1YmEzNWVhZTkwMTVlYTBmMjBjOSIsIm5iZiI6MTcyNTAxMTI2OC43MTAyMTUsInN1YiI6IjY2ZDE5MTNlM2UxYWI0NWNlNWIxNTI5NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._HV6mYV4emMyFSy3cdMo_ZH58oQQ2Q4__C3EWZ7nvYg',
-    },
-  }
-
-  const fetchData = async () => {
-    setLoading(true)
-    setError(null)
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=${currentPage}`,
-        options
-      )
-      if (!response.ok) {
-        throw new Error(`Response error! Status: ${response.status}`)
-      }
-      const data = await response.json()
-      setData(data.results)
-      if (onTotalPagesChange) {
-        onTotalPagesChange(data.total_pages)
-      }
-    } catch (error) {
-      setError(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
-    fetchData()
-  }, [query, currentPage])
+    const loadMovies = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const data = await fetchMovies(query, currentPage)
+        setData(data.results)
+        if (onTotalPagesChange) {
+          onTotalPagesChange(data.total_pages)
+        }
+      } catch (error) {
+        setError(error.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadMovies()
+  }, [query, currentPage, onTotalPagesChange])
 
   if (error) {
     return (
