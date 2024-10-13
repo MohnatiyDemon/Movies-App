@@ -35,7 +35,8 @@ body {
   background: #f5f5f5;
   color: #111111;
   min-width: 230px;
-  width: 1010px;
+  width: 100%;
+  max-width: 1010px;
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

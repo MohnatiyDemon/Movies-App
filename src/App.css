@@ -1,15 +1,18 @@
 @media (max-width: 768px) {
   .container {
-    width: 768px;
+    /* width: 100%; */
+    padding: 10px;
   }
   .Input {
-    max-width: 768px;
+    max-width: 100%;
   }
 }
+
 .container {
   background-color: white;
   margin: 0 auto;
-  width: 1010px;
+  width: 100%;
+  max-width: 1010px;
   padding: 36px;
 }
 
@@ -20,6 +23,7 @@
 .Input {
   margin-bottom: 25px;
   height: 40px;
+  width: 100%;
   max-width: 933px;
 }
 

@@ -7,7 +7,7 @@ const MovieGrid = ({ movies, loading, guestSessionId }) => {
       {movies && movies.length > 0 ? (
         <Row gutter={[16, 25]}>
           {movies.map((movieData) => (
-            <Col span={12} key={movieData.id} xs={24} sm={12}>
+            <Col span={12} key={movieData.id} xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
               <MovieCard guestSessionId={guestSessionId} movieData={movieData} />
             </Col>
           ))}

@@ -1,3 +1,24 @@
+@media (max-width: 525px) {
+  .MovieCard {
+    width: 100%;
+    padding: 5px;
+  }
+
+  .MovieCard img {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .MovieCard__title {
+    font-size: 16px;
+  }
+
+  .vote-average {
+    font-size: 14px;
+  }
+}
+
 .vote-average {
   position: relative;
   text-wrap: nowrap;
@@ -30,13 +51,14 @@
 .rating-excellent::before {
   border-color: #66e900;
 }
-
 .MovieCard {
   padding: 10px;
   height: 281px;
-  width: 454px;
+  width: 100%;
+  max-width: 454px;
   border-radius: 0;
   margin: 0 auto;
+  position: relative;
 }
 
 .MovieCard__title {
@@ -64,8 +86,10 @@
   position: absolute;
   top: -10px;
   left: 0;
-  height: 279px;
-  width: 183px;
+  height: auto;
+  max-height: 279px;
+  width: 100%;
+  max-width: 183px;
 }
 
 .Rate {
